@@ -1,0 +1,104 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+ul li {
+    list-style: none;
+    margin: 14px 0;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(#01012e, #240019);
+    font-family: system-ui;
+}
+
+section {
+    background: url(./stars1.webp);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+ul {
+    text-align: center;
+}
+
+ul:hover li a {
+    opacity: 0;
+}
+
+ul li a {
+    width: 160px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+    z-index: 4;
+    letter-spacing: 4px;
+    background-color: darkblue;
+    padding: 7px 15px;
+    border-radius: 100vmax;
+    text-transform: uppercase;
+    display: inline-block;
+    transition: 0.5s;
+}
+
+@media screen and (max-width:480px) {
+    ul li::after {
+        font-size: 60px !important;
+        font-weight: 900;
+
+    }
+}
+
+ul li a:hover {
+    transform: scale(1.5);
+    background: darkmagenta;
+    opacity: 1;
+}
+
+ul li::after {
+    content: attr(data-text);
+    color: #fff;
+    font-size: 90px;
+    font-weight: 900;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+
+}
+
+ul li::before {
+    content: "";
+    background-color: #fff;
+    width: 180px;
+    height: 80px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 70%);
+    box-shadow: 0 0 80px orangered;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+ul li:hover::after {
+    opacity: 0.5;
+}
+
+ul li:hover::before {
+    opacity: 0.5;
+    width: 80px;
+}
