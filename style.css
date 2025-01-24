@@ -4,15 +4,32 @@
     box-sizing: border-box;
 }
 
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
 ul li {
     list-style: none;
-    margin: 14px 0;
+    margin: 25px 0;
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 0.2s);
 }
 
 body {
     height: 100vh;
-    background: linear-gradient(#01012e, #240019);
-    font-family: system-ui;
+    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a3c);
+    background-size: 400% 400%;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden;
+    animation: gradientBG 15s ease infinite;
 }
 
 section {
@@ -23,82 +40,127 @@ section {
     justify-content: center;
     align-items: center;
     text-align: center;
+    animation: backgroundFloat 20s ease infinite;
+    position: relative;
+}
+
+section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%);
+    pointer-events: none;
+}
+
+@keyframes backgroundFloat {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
 }
 
 ul {
     text-align: center;
+    perspective: 1000px;
+    transform-style: preserve-3d;
 }
 
 ul:hover li a {
-    opacity: 0;
+    opacity: 0.15;
+    filter: blur(2px);
+    transform: scale(0.95) translateZ(-50px);
 }
 
 ul li a {
-    width: 160px;
+    width: 220px;
     color: #fff;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     position: relative;
     z-index: 4;
-    letter-spacing: 4px;
-    background-color: darkblue;
-    padding: 7px 15px;
-    border-radius: 100vmax;
+    letter-spacing: 3px;
+    background: rgba(41, 41, 255, 0.1);
+    padding: 15px 30px;
+    border-radius: 30px;
     text-transform: uppercase;
     display: inline-block;
-    transition: 0.5s;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2),
+                inset 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
 @media screen and (max-width:480px) {
     ul li::after {
-        font-size: 60px !important;
+        font-size: 40px !important;
         font-weight: 900;
-
+    }
+    
+    ul li a {
+        width: 180px;
+        font-size: 15px;
+        padding: 12px 20px;
     }
 }
 
 ul li a:hover {
-    transform: scale(1.5);
-    background: darkmagenta;
-    opacity: 1;
+    transform: scale(1.2) translateY(-15px) translateZ(50px);
+    background: rgba(147, 51, 234, 0.7);
+    opacity: 1 !important;
+    filter: blur(0) !important;
+    box-shadow: 0 15px 30px rgba(147, 51, 234, 0.5),
+                inset 0 0 15px rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 5px;
 }
 
 ul li::after {
     content: attr(data-text);
-    color: #fff;
-    font-size: 90px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 120px;
     font-weight: 900;
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0) rotate(-10deg);
     text-transform: uppercase;
     opacity: 0;
     pointer-events: none;
-
+    filter: blur(10px);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+                 0 0 40px rgba(255, 255, 255, 0.3),
+                 0 0 60px rgba(255, 255, 255, 0.2);
 }
 
 ul li::before {
     content: "";
-    background-color: #fff;
-    width: 180px;
-    height: 80px;
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+    width: 250px;
+    height: 120px;
     border-radius: 50%;
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, 70%);
-    box-shadow: 0 0 80px orangered;
+    transform: translate(-50%, 100%) scale(0) rotate(-5deg);
     opacity: 0;
-    transition: 0.5s;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: blur(5px);
 }
 
 ul li:hover::after {
-    opacity: 0.5;
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    filter: blur(0);
 }
 
 ul li:hover::before {
-    opacity: 0.5;
-    width: 80px;
+    opacity: 0.6;
+    width: 120px;
+    transform: translate(-50%, 70%) scale(1) rotate(0deg);
+    box-shadow: 0 0 120px rgba(255, 136, 0, 0.8),
+                0 0 200px rgba(255, 136, 0, 0.4);
 }
